@@ -1,1 +1,1 @@
-# ing-workshop
+# Redis workshop hands-on lab
