@@ -49,6 +49,8 @@ spring.session.redis.namespace=spring:session
 spring.session.redis.flush-mode=on_save
 ```
 
+# Application code
+
 Create a ```RedisConfig.java```into the package ```com.example.config``` and add the following code:
 
 ```java
