@@ -1,25 +1,20 @@
 package com.example.config;
 
+import com.redis.sessions.indexing.IndexedField;
+import com.redis.sessions.indexing.RedisIndexConfiguration;
+import com.redis.sessions.spring.config.annotation.web.http.EnableRedisSessions;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
+@ConditionalOnProperty(name = "spring.session.store-type", havingValue = "redisSessions")
 @Configuration
-@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 60)
+@EnableRedisSessions
 public class RedisConfig {
-
     @Bean
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<String, Object> template = new RedisTemplate<>();
-        template.setConnectionFactory(connectionFactory);
-        template.setKeySerializer(new StringRedisSerializer());
-        template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
-        template.setHashKeySerializer(new StringRedisSerializer());
-        template.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
-        return template;
+    public RedisIndexConfiguration redisIndexConfiguration(){
+        return RedisIndexConfiguration.builder()
+                .withField(IndexedField.numeric("lastAccessedTime").javaType(Integer.class).build())
+                .withField(IndexedField.numeric("createdAt").javaType(Integer.class).build()).build();
     }
-} 
+}
