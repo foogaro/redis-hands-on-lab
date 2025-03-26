@@ -1,5 +1,7 @@
 # Redis workshop hands-on lab
 
+## docker run -it --rm=true --name=redis -p 6379:6379 -p 8001:8001 redis/redis-stack:7.4.0-v2
+
 # Step 1 - Spring Boot application with Spring Security integration
 
 Simple Spring boot application with security enabled.
