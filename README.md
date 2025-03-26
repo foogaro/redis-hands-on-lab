@@ -1,5 +1,7 @@
 # Redis workshop hands-on lab
 
+# Step 1 - Spring Boot application with Spring Security integration
+
 Simple Spring boot application with security enabled.
 
 ## Application code
